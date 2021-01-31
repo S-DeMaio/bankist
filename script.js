@@ -71,9 +71,10 @@ const currencies = new Map([
   ['GBP', 'Pound sterling'],
 ]);
 
-const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
+/*
 // Lecture: simple array methods
 let arr = ['a', 'b', 'c', 'd', 'e'];
 
@@ -103,3 +104,32 @@ console.log([...arr, ...arr2]);
 
 //JOIN,
 console.log(letters.join(' - ')); //results in a string with specified separator
+*/
+
+// Lecture: Looping Arrays forEach
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+// for (const movement of movements) {
+//for of loop, first parameter is the index, and 2nd is current element
+for (const [i, movement] of movements.entries()) {
+  if (movement > 0) {
+    console.log(`Movement ${i + 1} You deposited $${movement}`);
+  } else {
+    console.log(`Movement ${i + 1} You Withdrew $${Math.abs(movement)}`);
+  }
+}
+
+console.log(`---- forEach ----`);
+//forEach loop, order of parameters are: current element, index, entire array.
+movements.forEach(function (movement, index, array) {
+  if (movement > 0) {
+    console.log(`Movement ${index + 1} You deposited $${movement}`);
+  } else {
+    console.log(`Movement ${index + 1} You Withdrew $${Math.abs(movement)}`);
+  }
+});
+//0: function(200)
+//1: function(450)
+// forEach method is a higher order function which takes a call back function as an argument and gets executed after every iteration of the for loop.
+//when should you use for of and forEach loops?
+// forEach loop cannot use 'continue', and 'break' statements. if you need to break out of a loop, you need for of loop.
