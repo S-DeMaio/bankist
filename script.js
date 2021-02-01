@@ -65,12 +65,6 @@ const inputClosePin = document.querySelector('.form__input--pin');
 /////////////////////////////////////////////////
 // LECTURES
 
-const currencies = new Map([
-  ['USD', 'United States dollar'],
-  ['EUR', 'Euro'],
-  ['GBP', 'Pound sterling'],
-]);
-
 // const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
@@ -104,7 +98,7 @@ console.log([...arr, ...arr2]);
 
 //JOIN,
 console.log(letters.join(' - ')); //results in a string with specified separator
-*/
+
 
 // Lecture: Looping Arrays forEach
 const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
@@ -133,3 +127,22 @@ movements.forEach(function (movement, index, array) {
 // forEach method is a higher order function which takes a call back function as an argument and gets executed after every iteration of the for loop.
 //when should you use for of and forEach loops?
 // forEach loop cannot use 'continue', and 'break' statements. if you need to break out of a loop, you need for of loop.
+*/
+
+//Lecture: forEach with maps and sets
+const currencies = new Map([
+  ['USD', 'United States dollar'],
+  ['EUR', 'Euro'],
+  ['GBP', 'Pound sterling'],
+]);
+
+currencies.forEach(function (value, key, map) {
+  console.log(`${key}: ${value}`);
+});
+
+//set
+const currenciesUnique = new Set(['USD', 'GBP', 'USD', 'EUR', 'EUR']);
+console.log(currenciesUnique);
+currenciesUnique.forEach(function (value, _, map) {
+  console.log(`${_}: ${value}`);
+}); //second parameter on forEach sets does not exist, since sets do not have keys. so its a duplicate of the value parameter.
