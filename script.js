@@ -82,7 +82,7 @@ displayMovements(account1.movements);
 /////////////////////////////////////////////////
 // LECTURES
 
-// const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
+const movements = [200, 450, -400, 3000, -650, -130, 70, 1300];
 
 /////////////////////////////////////////////////
 /*
@@ -144,7 +144,7 @@ movements.forEach(function (movement, index, array) {
 // forEach method is a higher order function which takes a call back function as an argument and gets executed after every iteration of the for loop.
 //when should you use for of and forEach loops?
 // forEach loop cannot use 'continue', and 'break' statements. if you need to break out of a loop, you need for of loop.
-*/
+
 
 //Lecture: forEach with maps and sets
 const currencies = new Map([
@@ -163,3 +163,36 @@ console.log(currenciesUnique);
 currenciesUnique.forEach(function (value, _, map) {
   console.log(`${_}: ${value}`);
 }); //second parameter on forEach sets does not exist, since sets do not have keys. so its a duplicate of the value parameter.
+*/
+
+// Lecture: Data transformations map, filter, reduce
+/*
+👉 map returns a new array containing the results of applying an operation on all original array elements 
+
+👉 filter returns a new array containing the array elements that passed a specified test condition.
+
+👉 reduce boils ('reduces') all array elements down to one single value (e.g. adding all elements together).
+
+
+// Lecture: the map method
+const eurToUsd = 1.1;
+const movementsUSD = movements.map(function (mov) {
+  return mov * eurToUsd;
+});
+console.log(movements);
+console.log(movementsUSD);
+
+const movementsUSDarrow = movements.map(mov => mov * eurToUsd);
+console.log(movementsUSDarrow);
+
+//diff paradigm for creating a new array without the map method.
+const movementsUSDfor = [];
+for (const mov of movements) movementsUSDfor.push(mov * eurToUsd);
+
+const movementsDescriptions = movements.map((mov, i) => {
+  return `Movement ${i + 1}: You ${
+    mov > 0 ? 'deposited' : 'withdrew'
+  } ${Math.abs(mov)}`;
+});
+console.log(movementsDescriptions);
+
