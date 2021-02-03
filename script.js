@@ -78,6 +78,12 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+const calcDisplayBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
+calcDisplayBalance(account1.movements);
+
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -87,9 +93,7 @@ const createUsernames = function (accs) {
       .join('');
   });
 };
-
 createUsernames(accounts);
-console.log(accounts);
 
 /////////////////////////////////////////////////
 /////////////////////////////////////////////////
@@ -191,8 +195,10 @@ currenciesUnique.forEach(function (value, _, map) {
 const eurToUsd = 1.1;
 const movementsUSD = movements.map(function (mov) {
   return mov * eurToUsd;
-});
-console.log(movements);
+});const calcPintBalance = function (movements) {
+  const balance = movements.reduce((acc, mov) => acc + mov, 0);
+  labelBalance.textContent = `${balance} EUR`;
+};
 console.log(movementsUSD);
 
 const movementsUSDarrow = movements.map(mov => mov * eurToUsd);
@@ -208,6 +214,37 @@ const movementsDescriptions = movements.map((mov, i) => {
   } ${Math.abs(mov)}`;
 });
 console.log(movementsDescriptions);
+
+//Lecture: the filter method
+const deposits = movements.filter(function (e) {
+  return e > 0;
+});
+console.log(movements);
+console.log(deposits);
+
+const withdrawals = movements.filter(e => e < 0);
+console.log(withdrawals);
 */
 
-//Lecture: Computing Usernames
+// Lecture: the reduce method
+console.log(movements);
+const balance = movements.reduce(function (a, c, i, arr) {
+  console.log(`Iteration ${i}: ${a}`);
+  return a + c;
+}, 0); //first paramter is the accumulator, then current value, index, and array. the 0 represents the initial value.
+console.log(balance);
+
+//adding an array without reduce method
+let balance2 = 0;
+for (const mov of movements) balance2 += mov;
+console.log(balance2);
+
+//Maximum value
+const max = movements.reduce((a, b) => {
+  if (a > b) {
+    return a;
+  } else {
+    return b;
+  }
+}, movements[0]);
+console.log(max);
