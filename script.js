@@ -71,7 +71,7 @@ const displayMovements = function (movements) {
       <div class="movements__type movements__type--${type}">${
       i + 1
     } ${type}</div>
-      <div class="movements__value">${mov}</div>
+      <div class="movements__value">${mov}€</div>
   </div> `;
     containerMovements.insertAdjacentHTML('afterbegin', html);
   });
@@ -80,9 +80,34 @@ displayMovements(account1.movements);
 
 const calcDisplayBalance = function (movements) {
   const balance = movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${balance} EUR`;
+  labelBalance.textContent = `${balance}€`;
 };
 calcDisplayBalance(account1.movements);
+
+const calcDisplaySummary = function (movements) {
+  //calculate/display deposits
+  const incomes = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `${incomes}€`;
+
+  //calculate/display withdrawals
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumOut.textContent = `${Math.abs(out)}€`;
+
+  //calculate/display interest
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `${interest}€`;
+};
+calcDisplaySummary(account1.movements);
 
 const createUsernames = function (accs) {
   accs.forEach(function (acc) {
@@ -224,7 +249,7 @@ console.log(deposits);
 
 const withdrawals = movements.filter(e => e < 0);
 console.log(withdrawals);
-*/
+
 
 // Lecture: the reduce method
 console.log(movements);
@@ -248,3 +273,28 @@ const max = movements.reduce((a, b) => {
   }
 }, movements[0]);
 console.log(max);
+
+
+// Lecture: Magic of Chaining Methods
+const eurToUsd = 1.1;
+
+//PIPELINE
+const totalDepositsUSD = movements
+  .filter(mov => mov > 0)
+  // .map((mov, i, arr) => {
+  //   console.log(arr);
+  //   return mov * eurToUsd;
+  // }) //you have access to the current array incase you need to debug a problem.
+  .map(mov => mov * eurToUsd)
+  .reduce((acc, mov) => acc + mov, 0); //can't chain a method after reduce since it doesn't return a new array.
+console.log(totalDepositsUSD);
+*/
+
+// Lecture: the find method
+//just like the filter method, find method takes in a callback function that returns a boolean. unlike filter, find does not return a new array. it returns the first element that satisfies the condition.
+const firstWithdrawal = movements.find(mov => mov < 0);
+console.log(firstWithdrawal);
+
+console.log(accounts);
+const account = accounts.find(acc => acc.owner === 'Jessica Davis');
+console.log(account);
