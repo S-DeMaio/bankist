@@ -33,7 +33,14 @@ const account4 = {
   pin: 4444,
 };
 
-const accounts = [account1, account2, account3, account4];
+const account5 = {
+  owner: 'Tyler Brosseau',
+  movements: [1000, 1337, 420, 6900],
+  interestRate: 1.5,
+  pin: 5555,
+};
+
+const accounts = [account1, account2, account3, account4, account5];
 
 // Elements
 const labelWelcome = document.querySelector('.welcome');
@@ -383,3 +390,11 @@ console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
 */
+
+//Lecture: Some and every
+console.log(movements);
+console.log(movements.includes(-130)); //returns boolean. testing for equality.
+
+//SOME:
+const anyDeposits = movements.some(mov => mov > 0); //returns boolean, testing with condition.
+console.log(anyDeposits);
