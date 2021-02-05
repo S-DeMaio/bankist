@@ -69,9 +69,12 @@ const inputCloseUsername = document.querySelector('.form__input--user');
 const inputClosePin = document.querySelector('.form__input--pin');
 
 //creating DOM elements
-const displayMovements = function (movements) {
+const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-  movements.forEach(function (mov, i) {
+
+  const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
+
+  movs.forEach(function (mov, i) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = ` 
     <div class="movements__row">
@@ -223,6 +226,13 @@ btnClose.addEventListener('click', function (e) {
 
   //clear input fields
   inputCloseUsername.value = inputClosePin.value = '';
+});
+
+let sorted = false;
+btnSort.addEventListener('click', function (e) {
+  e.preventDefault();
+  displayMovements(currentAccount.movements, !sorted);
+  sorted = !sorted;
 });
 
 /////////////////////////////////////////////////
@@ -403,7 +413,6 @@ console.log(firstWithdrawal);
 console.log(accounts);
 const account = accounts.find(acc => acc.owner === 'Jessica Davis');
 console.log(account);
-*/
 
 //Lecture: Some and every
 console.log(movements);
@@ -420,3 +429,56 @@ console.log(account4.movements.every(mov => mov > 0));
 //Separate callback
 const deposit = mov => mov > 0;
 console.log(movements.some(deposit));
+
+//Lecture: flat and flatMap
+const arr = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arr.flat()); //'flatens' an array, removing the nested arrays and combining them into a new array. only goes 1 level deep.
+
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8];
+console.log(arrDeep.flat(2)); //passing through the depth argument. 2 levels deep now.
+
+//chaining map and flat with reduce.
+const overallBalance = accounts
+.map(acc => acc.movements)
+.flat()
+.reduce((a, b) => a + b, 0);
+console.log(overallBalance);
+
+//flatMap
+const overallBalance2 = accounts
+.flatMap(acc => acc.movements) //can't change depth like with flat method.
+.reduce((a, b) => a + b, 0);
+console.log(overallBalance2);
+*/
+
+//sort strings
+const owners = ['Jonas', 'Zach', 'Adam', 'Martha'];
+console.log(owners.sort());
+
+//Numbers
+console.log(movements);
+
+//return < 0, A, B (keep order)
+//return > 0, B, A (switch order)
+// movements.sort((a, b) => {
+//   //Ascending order
+//   if (a > b) {
+//     return 1;
+//   } else if (a < b) {
+//     return -1;
+//   }
+// });
+
+movements.sort((a, b) => a - b);
+console.log(movements);
+
+// movements.sort((a, b) => {
+//   //Descending order
+//   if (a > b) {
+//     return -1;
+//   } else if (a < b) {
+//     return 1;
+//   }
+// });
+movements.sort((a, b) => b - a);
+console.log(movements);
